@@ -8,7 +8,7 @@ pipeline {
             steps{
                 // mvn test
                 sh "mvn test"
-                slackSend channel: 'jobsnotification', message: 'Job Started'
+                slackSend channel: 'jobsnotification', message: 'Job Started !!! Currently on Test stage'
                 
             }
             
@@ -16,7 +16,7 @@ pipeline {
         stage("Build"){
             steps{
                 sh "mvn package"
-                
+                slackSend channel: 'jobsnotification', message: 'Building.....'
             }
             
         }
@@ -24,7 +24,7 @@ pipeline {
             steps{
                 // deploy on container -> plugin
                 deploy adapters: [tomcat8(credentialsId: 'testserver', path: '', url: 'http://107.23.182.181:8080/')], contextPath: '/app', war: '**/*.war'
-              
+                slackSend channel: 'jobsnotification', message: 'Deploying to Test-Server'
             }
             
         }
