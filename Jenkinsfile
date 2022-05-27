@@ -15,7 +15,7 @@ pipeline {
         }
         stage("Build"){
             steps{
-                sh "mvn packae"
+                sh "mvn package"
                 slackSend channel: 'jobsnotification', message: 'Build is successful'
             }
             
